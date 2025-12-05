@@ -1,14 +1,16 @@
-import { useState } from 'react'
 import './App.css'
+import Header from '@/components/Header';
+import ChatContainer from '@/components/ChatContainer'
 
 function App() {
 
   return (
-    <>
-      <div>
-        <h1>Where do you want to go?</h1>
-      </div>
-    </>
+    <main className="m-auto max-w-3xl p-4">
+      <Header />
+
+      <ChatContainer />
+
+    </main>
   )
 }
 
