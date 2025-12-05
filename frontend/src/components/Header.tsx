@@ -1,8 +1,14 @@
-const Header = () => {
+const Header = ({ onRestartKey }: { onRestartKey: () => void }) => {
 
   return (
-    <header>
-      <h1>Where do you want to go?</h1>
+    <header className="flex justify-between items-center">
+      <h1 className="font-bold text-2xl ">AI Travel</h1>
+      <button
+        className="border-2 border-red-900 py-2 px-4 rounded-lg hover:bg-red-900 transition-colors"
+        onClick={onRestartKey}
+      >
+        New chat
+      </button>
     </header>
   );
 }
