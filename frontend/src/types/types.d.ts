@@ -7,6 +7,7 @@ type Message = {
 };
 
 type MarkerInfo = {
+  city?: string,
   position: LatLngExpression;
   popupText: string;
 };
