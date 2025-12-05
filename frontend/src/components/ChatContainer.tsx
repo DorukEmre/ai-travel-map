@@ -17,7 +17,7 @@ const createNewChatSession = () => {
       thinkingConfig: {
         thinkingBudget: 0,
       },
-      systemInstruction: "Be concise and to the point in your answers.",
+      systemInstruction: "Be concise and to the point in your answers. Be sarcastic. Help the user identify relevant travel destinations and suggest potential travel locations.",
     },
     history: [
       {
