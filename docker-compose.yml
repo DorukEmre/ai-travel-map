@@ -30,12 +30,12 @@ services:
     networks:
       - travel-network
     volumes:
-      - node_modules:/app/node_modules
+      - ./frontend/node_modules:/app/node_modules
       - ./frontend:/app
 
 networks:
   travel-network:
     driver: bridge
 
-volumes:
-  node_modules:
+# volumes:
+  # node_modules:
