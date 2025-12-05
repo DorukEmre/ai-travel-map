@@ -1,0 +1,41 @@
+services:
+
+  travel-server:
+    image: travel-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html:ro
+    networks:
+      - travel-network
+  
+  travel-frontend:
+    image: travel-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "5173:5173"
+    # env_file:
+    #   - .env
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080/api
+    depends_on:
+      - travel-server 
+    networks:
+      - travel-network
+    volumes:
+      - node_modules:/app/node_modules
+      - ./frontend:/app
+
+networks:
+  travel-network:
+    driver: bridge
+
+volumes:
+  node_modules:
