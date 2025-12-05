@@ -1,6 +1,10 @@
-import type { Message } from "@/types/types";
 
-const MessageBubble = ({ text, isSent }: Message) => {
+interface MessageBubbleProps {
+  text: React.ReactNode;
+  isSent: boolean;
+}
+
+const MessageBubble = ({ text, isSent }: MessageBubbleProps) => {
 
   let bgColorClass = isSent
     ? "bg-emerald-800"
