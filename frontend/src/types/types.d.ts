@@ -1,3 +1,5 @@
+import type { LatLngExpression } from 'leaflet';
+
 type Message = {
   id?: string;
   text: string;
@@ -8,4 +10,10 @@ interface MessageListProps {
   messages: ReadonlyArray<Message>;
 }
 
-export { Message, MessageListProps };
+
+type MarkerInfo = {
+  position: LatLngExpression;
+  popupText: string;
+};
+
+export { Message, MessageListProps, MarkerInfo };

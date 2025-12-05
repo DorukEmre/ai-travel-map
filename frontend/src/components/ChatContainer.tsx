@@ -6,6 +6,7 @@ import SendInput from '@/components/SendInput';
 import SendButton from '@/components/SendButton';
 
 import type { Message } from '@/types/types';
+import TravelMap from '@/components/TravelMap';
 
 
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
@@ -100,6 +101,8 @@ const ChatContainer = ({ restartKey }: { restartKey: number }) => {
           Error: {error}
         </div>
       )}
+
+      <TravelMap />
 
       <form className="flex p-2 justify-end" onSubmit={handleSendMessage}>
         <SendInput message={newMessage} setNewMessage={setNewMessage} />
