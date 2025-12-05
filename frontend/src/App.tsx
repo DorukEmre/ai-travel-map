@@ -13,12 +13,13 @@ function App() {
   };
 
   return (
-    <main className="m-auto max-w-3xl p-4 min-h-screen">
+    <>
       <Header onRestartKey={handleRestartChat} />
 
-      <ChatContainer restartKey={restartKey} />
-
-    </main>
+      <main className="m-auto max-w-3xl p-4 min-h-full">
+        <ChatContainer restartKey={restartKey} />
+      </main>
+    </>
   )
 }
 
