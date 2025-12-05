@@ -9,18 +9,36 @@ import SendButton from '@/components/SendButton';
 
 import type { Message } from '@/types/types';
 
+
 const ChatContainer = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  const [chat] = useState(() =>
+    ai.chats.create({
+      model: "gemini-2.5-flash",
+      config: {
+        thinkingConfig: {
+          thinkingBudget: 0,
+        },
+        systemInstruction: "Be concise and to the point in your answers, and also sarcastic",
+      },
+      history: [
+        {
+          role: "model",
+          parts: [{ text: "Hello, where would you like to travel?" }],
+        },
+      ],
+    })
+  );
+
   useEffect(() => {
     setMessages([
-      { text: "Hello, how can I assist you?", isSent: false },
-      { text: "I'm looking for travel suggestions.", isSent: true },
-      { text: "What destination do you have in mind?", isSent: false },
+      { text: "Hello, where would you like to travel?", isSent: false },
     ]);
+
   }, []);
 
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,27 +46,17 @@ const ChatContainer = () => {
 
     if (!newMessage.trim()) return;
 
-
-    const messageToSend: Message = { text: newMessage, isSent: true };
-
-    setMessages((prevMessages) => [...prevMessages, messageToSend]);
+    setError("");
 
     try {
+      console.log(chat.getHistory());
 
-      setError("");
+      const response = await chat.sendMessage({ message: newMessage });
 
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: newMessage,
-        config: {
-          thinkingConfig: {
-            thinkingBudget: 0, // Disables thinking
-          },
-        }
-      });
-
+      const userMessage: Message = { text: newMessage, isSent: true };
       const aiMessage: Message = { text: response?.text ?? "error", isSent: false };
-      setMessages((prevMessages) => [...prevMessages, aiMessage]);
+
+      setMessages((prevMessages) => [...prevMessages, userMessage, aiMessage]);
 
       setNewMessage("");
 
