@@ -1,5 +1,5 @@
 import MessageList from '@/components/MessageList';
-import MessageInput from '@/components/MessageInput';
+import SendInput from '@/components/SendInput';
 import SendButton from '@/components/SendButton';
 
 const ChatContainer = () => {
@@ -16,7 +16,7 @@ const ChatContainer = () => {
       <MessageList messages={messages} />
 
       <div className="flex p-2 justify-end">
-        <MessageInput />
+        <SendInput />
         <SendButton />
       </div>
 
