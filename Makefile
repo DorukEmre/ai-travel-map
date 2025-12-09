@@ -4,6 +4,7 @@ NAME	= ai-travel-map
 
 
 build:
+	mkdir -p frontend/dist
 	docker compose -f docker-compose.yml up --build
 
 stop:
