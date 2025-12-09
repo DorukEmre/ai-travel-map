@@ -1,6 +1,6 @@
-const SendInput = ({ message, setNewMessage }: {
+const SendInput = ({ message, setInputMessage }: {
   message: string,
-  setNewMessage: React.Dispatch<React.SetStateAction<string>>
+  setInputMessage: React.Dispatch<React.SetStateAction<string>>
 }) => {
 
   return (
@@ -9,7 +9,7 @@ const SendInput = ({ message, setNewMessage }: {
       type="text"
       placeholder="Message..."
       value={message}
-      onChange={(e) => setNewMessage(e.target.value)}
+      onChange={(e) => setInputMessage(e.target.value)}
     />
   );
 };

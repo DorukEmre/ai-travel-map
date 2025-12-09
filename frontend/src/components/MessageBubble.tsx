@@ -1,20 +1,20 @@
 
 interface MessageBubbleProps {
   text: React.ReactNode;
-  isSent: boolean;
+  byUser: boolean;
 }
 
-const MessageBubble = ({ text, isSent }: MessageBubbleProps) => {
+const MessageBubble = ({ text, byUser }: MessageBubbleProps) => {
 
-  let bgColorClass = isSent
+  let bgColorClass = byUser
     ? "bg-emerald-800"
     : "bg-zinc-800";
 
-  let rounded = isSent
+  let rounded = byUser
     ? "rounded-tl-lg rounded-bl-lg rounded-br-lg"
     : "rounded-tr-lg rounded-br-lg rounded-bl-lg";
 
-  let justify = isSent
+  let justify = byUser
     ? "justify-end"
     : "justify-start";
 

@@ -1,12 +1,13 @@
 import MessageBubble from '@/components/MessageBubble';
 
 import type { Message } from '@/types/types';
+import React from 'react';
 
 interface MessageListProps {
   messages: ReadonlyArray<Message>;
 }
 
-const MessageList = ({ messages }: MessageListProps) => {
+const MessageList = React.memo(({ messages }: MessageListProps) => {
 
   const formatText = (text: string) => {
     console.log(text);
@@ -38,11 +39,11 @@ const MessageList = ({ messages }: MessageListProps) => {
         <MessageBubble
           key={msg.id ?? index}
           text={<span dangerouslySetInnerHTML={{ __html: formatText(msg.text) }} />}
-          isSent={msg.isSent}
+          byUser={msg.byUser}
         />
       ))}
     </div>
   );
-};
+});
 
 export default MessageList;

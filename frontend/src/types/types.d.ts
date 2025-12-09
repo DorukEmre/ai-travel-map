@@ -3,7 +3,7 @@ import type { LatLngExpression } from 'leaflet';
 type Message = {
   id?: string;
   text: string;
-  isSent: boolean;
+  byUser: boolean;
 };
 
 type MarkerInfo = {
