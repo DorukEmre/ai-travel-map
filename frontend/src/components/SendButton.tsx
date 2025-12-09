@@ -5,7 +5,7 @@ const SendButton = () => {
   return (
     <button
       type="submit"
-      className="flex bg-green-800 px-4 py-2 rounded-lg ml-2 justify-center items-center hover:bg-green-900 transition-colors"
+      className="flex bg-green-800 px-4 py-2 rounded-lg ml-2 justify-center items-center hover:bg-green-900 transition-colors cursor-pointer"
     >
       Send
       <img src={sendIcon} alt="Send" className="inline-block ml-2 w-5 h-5" />
