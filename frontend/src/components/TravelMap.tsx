@@ -6,34 +6,7 @@ import type { LatLngExpression } from 'leaflet';
 
 
 const TravelMap = ({ cities }: { cities: MarkerInfo[] }) => {
-  const [mapHeight, setMapHeight] = useState<number>(64);
   const [mapCenter, setMapCenter] = useState<LatLngExpression>();
-
-  // let markers: MarkerInfo[] = [
-  //   { position: [40.417, -3.704], popupText: "Madrid, Spain" },
-  //   { position: [41.3851, 2.1734], popupText: "Barcelona, Spain" },
-  //   { position: [48.8566, 2.3522], popupText: "Paris, France" },
-  // ];
-
-  const updateMapHeight = () => {
-    const screenWidth = window.innerWidth;
-    if (screenWidth < 640) { // Small screens
-      setMapHeight(64);
-    } else { // Large screens
-      setMapHeight(96);
-    }
-  };
-
-  // Adjust map height on component mount and on window resize
-  useEffect(() => {
-    updateMapHeight();
-
-    window.addEventListener('resize', updateMapHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateMapHeight);
-    };
-  }, []);
 
   useEffect(() => {
     console.log("cities length: ", cities.length)
@@ -47,8 +20,8 @@ const TravelMap = ({ cities }: { cities: MarkerInfo[] }) => {
 
   return (
     <>
-      {mapHeight && mapCenter &&
-        <div className={`w-full h-${mapHeight} my-4 rounded-lg overflow-hidden`}>
+      {mapCenter &&
+        <div className="w-full h-64 md:h-96 my-4 rounded-lg overflow-hidden">
 
           <MapContainer center={mapCenter} zoom={1} scrollWheelZoom={true} style={{ height: "100%", minHeight: "100%" }}>
 
