@@ -26,6 +26,8 @@ const ChatContainer = ({ restartKey }: { restartKey: number }) => {
   const [error, setError] = useState<string>("");
   // List of formatted city names
   const [formattedCities, setFormattedCities] = useState<MarkerInfo[]>([]);
+  // 
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   // Reset chat session when restartKey changes (passed from Header)
   useEffect(() => {
@@ -50,11 +52,32 @@ const ChatContainer = ({ restartKey }: { restartKey: number }) => {
 
   }, [restartKey]);
 
+  // Query the ai for city names and return json with formatted city markers 
+  useEffect(() => {
+    if (!messages || messages.length <= 1)
+      return;
+
+    const getFormattedCities = async () => {
+      try {
+
+        let citiesFromResponse = await queryCityNames(messages, ai);
+        if (citiesFromResponse)
+          setFormattedCities(citiesFromResponse);
+
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Unknown API error.");
+      }
+    };
+
+    getFormattedCities();
+
+  }, [messages]);
+
 
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!inputMessage.trim())
+    if (!inputMessage.trim() || isSending)
       return;
 
     // Input validation
@@ -65,6 +88,8 @@ const ChatContainer = ({ restartKey }: { restartKey: number }) => {
     else if (error)
       setError("");
 
+    setIsSending(true);
+
     try {
       // Send user message to AI and get response
       const response = await chat.sendMessage({ message: inputMessage });
@@ -72,19 +97,15 @@ const ChatContainer = ({ restartKey }: { restartKey: number }) => {
       // Update message list with user and AI messages
       const userMessage: Message = { text: inputMessage, byUser: true };
       const aiMessage: Message = { text: response?.text ?? "error", byUser: false };
-      const updatedMessages = [...messages, userMessage, aiMessage];
 
       setMessages(prevMessages => [...prevMessages, userMessage, aiMessage]);
-
-      let citiesFromResponse = await queryCityNames(updatedMessages, ai);
-      if (citiesFromResponse)
-        setFormattedCities(citiesFromResponse);
-
       setInputMessage("");
 
     } catch (error) {
       console.error("Error generating content:", error);
       setError(error instanceof Error ? error.message : "Unknown API error.");
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -105,7 +126,7 @@ const ChatContainer = ({ restartKey }: { restartKey: number }) => {
 
       <form className="flex p-2 justify-end" onSubmit={handleSendMessage}>
         <SendInput message={inputMessage} setInputMessage={setInputMessage} />
-        <SendButton />
+        <SendButton isSending={isSending} />
       </form>
 
     </div>

@@ -19,7 +19,7 @@ const initialiseAI = () => {
 const createChatSession = (ai: GoogleGenAI) => {
 
   return ai.chats.create({
-    model: "gemini-2.0-flash-lite",
+    model: "gemini-2.5-flash-lite",
     config: {
       thinkingConfig: {
         thinkingBudget: 0,
@@ -58,7 +58,7 @@ const queryCityNames = async (messages: Message[], ai: GoogleGenAI) => {
   console.log('messages: ', messagesStr);
 
   const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash-lite",
+    model: "gemini-2.5-flash-lite",
     config: {
       thinkingConfig: {
         thinkingBudget: 0,
