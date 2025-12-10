@@ -1,0 +1,15 @@
+services:
+
+  travel-frontend-dev:
+    image: travel-frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./frontend/node_modules:/app/node_modules
+      - ./frontend:/app

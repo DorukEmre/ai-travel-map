@@ -1,0 +1,12 @@
+services:
+
+  travel-server:
+    image: travel-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html:ro
