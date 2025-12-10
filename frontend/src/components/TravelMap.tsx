@@ -4,6 +4,17 @@ import type { MarkerInfo } from '@/types/types';
 import { useEffect, useState } from 'react';
 import type { LatLngExpression } from 'leaflet';
 
+import L from 'leaflet';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerIconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerIconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
 
 const TravelMap = ({ cities }: { cities: MarkerInfo[] }) => {
   const [mapCenter, setMapCenter] = useState<LatLngExpression>();
